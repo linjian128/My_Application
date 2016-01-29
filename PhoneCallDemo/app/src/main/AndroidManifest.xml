@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.phonecalldemo.jlin10x.phonecalldemo">
+
+<application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+    <activity
+        android:name=".PhoneCallDemo">
+
+        <service android:name=".PhoneService"></service>
+        <receiver android:name=".PhoneBroadcastReceiver">
+            <intent-filter >
+                <action android:name="android.intent.action.BOOT_COMPLETED"/> <!-- 开机启动广播  -->
+            </intent-filter>
+        </receiver>
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+</application>
+
+    <uses-sdk android:minSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- 监听电话状态权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <!-- 在SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <!-- 在SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <!-- 刻入声音权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+</manifest>
