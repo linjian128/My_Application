@@ -1,5 +1,6 @@
 package com.phonecalldemo.jlin10x.phonecalldemo;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -8,6 +9,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
@@ -18,10 +21,43 @@ import android.widget.Toast;
 public class PhoneCallDemo extends Activity {
     private Button bt;
     private EditText et;
+    TelephonyManager telephonyManager;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_call_demo);
+
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+
+        PhoneStateListener listener = new PhoneStateListener()
+        {
+            public void onCallStateChanged ( int state, String incomingNumber)
+            {
+                switch (state) {
+                    case TelephonyManager.CALL_STATE_RINGING:   //来电
+                        Log.e("hg", "电话状态……RINGING");
+                        Log.i("TelephoneState555555", "RINGING");
+
+                        break;
+                    case TelephonyManager.CALL_STATE_OFFHOOK:   //接通电话
+                        Log.e("hg", "电话状态……OFFHOOK");
+
+                        break;
+
+                    case TelephonyManager.CALL_STATE_IDLE:  //挂掉电话
+                        Log.e("hg", "电话状态……IDLE");
+
+                        break;
+                    default:
+                        break;
+                }
+                super.onCallStateChanged(state, incomingNumber);
+            }
+        };
+        telephonyManager.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
+
+
+
 //取得资源
         bt = (Button) findViewById(R.id.bt1);
         et = (EditText) findViewById(R.id.et1);
@@ -77,5 +113,7 @@ public class PhoneCallDemo extends Activity {
         String time=t.year+"年 "+(t.month+1)+"月 "+t.monthDay+"日 "+t.hour+"h "+t.minute+"m "+t.second;
         Log.e("msg", time);
     }
+
+
 }
 
