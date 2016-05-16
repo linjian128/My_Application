@@ -134,7 +134,8 @@ public class Sinch_Phone_Call extends AppCompatActivity {
             String s = "this is a test string writing to file.";
             byte[] buf = s.getBytes();
             stream.write(buf);
-            stream.close();*/
+            stream.close();
+            */
 
             BufferedWriter out = null;
             try {
